@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>dalkak</title>
+
+<!-- 영문: Google Sans Regular(400) / 국문: Pretendard Medium(500) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+@font-face{
+  font-family:"PretendardBold";
+  font-weight:700;
+  src:url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff2/Pretendard-Bold.woff2") format("woff2");
+  font-display:swap;
+}
+@font-face{
+  font-family:"PretendardMedium";
+  font-weight:500;
+  src:url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/packages/pretendard/dist/web/static/woff2/Pretendard-Medium.woff2") format("woff2");
+  font-display:swap;
+}
+
+:root{
+  /* ── 디바이스 ── */
+  --dev-name: "모바일 — iPhone 17";
+  --dev-w:    402px;
+  --dev-h:    852px;
+
+  /* ── 컬러 ── */
+  --blue:  #1BB8EC;
+  --blue2: #36B6EA;
+  --gray:  #F5F5F5;
+  --ink:   #111111;
+
+  /* ── 폰트: 영문 Google Sans Regular / 국문 Pretendard Medium ── */
+  --font: "Google Sans","PretendardMedium","Pretendard",sans-serif;
+  --fs:   11.5px;   /* 본문 */
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  background:#E6EBEF;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font);font-weight:500;font-size:var(--fs);
+  color:var(--ink);-webkit-font-smoothing:antialiased;
+}
+button{font:inherit;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+
+.device{
+  position:relative;width:var(--dev-w);height:var(--dev-h);
+  background:#fff;overflow:hidden;
+  box-shadow:0 10px 40px rgba(0,0,0,.18);
+}
+@media (max-width:402px){
+  body{background:#fff;display:block}
+  .device{margin:0 auto;box-shadow:none;max-width:100%}
+}
+
+.screen{position:absolute;inset:0;display:none;overflow-x:hidden;overflow-y:hidden}
+.screen.on{display:block}
+#landing.on{overflow-y:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+#landing::-webkit-scrollbar{display:none}
+
+/* 절대 좌표 기반 레이아웃 (이미지 기준 402px 환산) */
+.page{position:relative;width:402px;margin:0 auto}
+#landing .page{height:1528px}
+#done .page{height:852px}
+
+.t{position:absolute;left:40px;line-height:18px;white-space:nowrap}
+.r{left:auto;right:40px}
+.c{left:0;width:402px;text-align:center}
+.blue{color:var(--blue)}
+.white{color:#fff}
+.h{font-size:15px;line-height:20px}
+
+.cta{
+  position:absolute;left:40px;width:322px;height:48px;border-radius:24px;
+  background:var(--blue);color:#fff;font-size:13px;
+  font-family:"PretendardBold","Pretendard",sans-serif;font-weight:700;
+}
+
+/* 라디오 */
+.radio{position:absolute;left:54.5px;width:15px;height:15px;border-radius:50%;background:#DCDCDC}
+.radio::after{content:"";position:absolute;inset:4px;border-radius:50%;background:#fff}
+.radio.on{background:#A6E0F8}
+.pill{position:absolute;left:161px;top:366px;width:37px;height:14px;border:1px solid var(--blue);
+  border-radius:7px;color:var(--blue);font-size:8px;line-height:12px;text-align:center}
+
+/* 용기 사이즈 */
+.box{position:absolute;background:var(--gray);display:flex;align-items:center;justify-content:center;font-size:9.5px}
+.mm{position:absolute;font-size:9.5px;line-height:12px;white-space:nowrap;transform:translate(-50%,-50%)}
+.mm.v{transform:translate(-50%,-50%) rotate(90deg)}
+
+/* 하단 블루 */
+.band{position:absolute;left:0;width:402px;background:var(--blue)}
+
+/* 일러스트 */
+.ill{position:absolute;overflow:visible}
+.card{position:absolute;left:222px;top:1026px;width:139px;height:69px;background:var(--blue2);border:1px solid #CFCFCF}
+.card .w{position:absolute;left:0;top:0;width:51px;height:100%;background:#fff}
+.card .w svg{position:absolute;left:9px;top:12px}
+.card p{position:absolute;left:59px;font-size:6.5px;line-height:11px;color:#fff;white-space:nowrap}
+.nfc{position:absolute;left:59px;top:46px;width:30px;height:17px;border:1px solid rgba(255,255,255,.7);
+  border-radius:4px;color:#CFF0FC;font-size:8px;line-height:15px;text-align:center}
+</style>
+</head>
+<body>
+
+<!-- 로고 심볼 -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="logo" viewBox="114 101 1199 780">
+      <path fill="var(--c1,#55B8E9)" d="M114 101H983V442H1313V575H849V235H248V575H114Z"/>
+      <rect fill="var(--c1,#55B8E9)" x="501" y="442" width="271" height="133"/>
+      <rect fill="var(--c2,#EDB171)" x="1043" y="235" width="270" height="133"/>
+      <path fill="var(--c3,#9DD4F0)" d="M501 575H635A173 173 0 0 0 981 575H1115A307 307 0 0 1 501 575Z"/>
+    </symbol>
+    <symbol id="word" viewBox="46 55 1824 500">
+      <g fill="var(--w1,#4EB8EA)">
+        <rect x="288" y="55" width="77" height="500"/>
+        <path d="M680 555V377A100 100 0 1 0 646 452L646 541A177 177 0 1 1 757 377V555Z"/>
+        <rect x="805" y="55" width="77" height="500"/>
+        <rect x="934" y="55" width="77" height="500"/>
+        <path d="M1011 336L1128 221L1182 275C1155 303 1112 343 1105 368V377A100 100 0 0 0 1205 477V555A178 178 0 0 1 1033 422L1011 444Z"/>
+        <path d="M680 555V377A100 100 0 1 0 646 452L646 541A177 177 0 1 1 757 377V555Z" transform="translate(798 0)"/>
+        <rect x="1599" y="55" width="77" height="500"/>
+      </g>
+      <g fill="var(--w2,#9DD4F0)">
+        <path d="M288 199H224A178 178 0 0 0 224 555H288V477H224A100 100 0 0 1 224 277H288Z"/>
+        <path d="M1011 336L1128 221L1182 275C1155 303 1112 343 1105 368V377A100 100 0 0 0 1205 477V555A178 178 0 0 1 1033 422L1011 444Z" transform="translate(665 0)"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="device">
+
+  <!-- ───────── 1. 랜딩 ───────── -->
+  <section class="screen on" id="landing">
+    <div class="page">
+
+      <svg class="ill" style="left:187px;top:52px" width="27" height="17.6"><use href="#logo" width="27" height="17.6"/></svg>
+
+      <button class="cta" style="top:88px" data-go="done">달칵 다회용기 수거 신청하기</button>
+
+      <div class="t h" style="top:183px">How to use dalkak</div>
+
+      <!-- step 1 -->
+      <div class="t blue" style="top:229px">서비스 매장 확인 및 배달 음식 주문하기</div>
+      <div class="t blue r" style="top:229px">step 1</div>
+      <div class="t" style="top:260px">달칵의 다회용기 배달 서비스를 제공하는 식당에서 원하는 음식을<br>주문합니다. 주문 시 결제 단계에서 [달칵 다회용기 배달]을 선택합니다.</div>
+
+      <div class="t" style="top:324px;font-size:9.5px">포장용기 선택 <span class="blue">*</span></div>
+      <div class="box" style="left:40px;top:350px;width:322px;height:73px;background:var(--gray)"></div>
+      <div class="radio on" style="top:364.5px"></div>
+      <div class="t" style="left:78px;top:363px;font-size:9.5px">달칵 다회용기 사용</div>
+      <div class="pill" style="display:flex;align-items:center;justify-content:center"><svg width="26" height="7.1"><use href="#word" width="26" height="7.1"/></svg></div>
+      <div class="radio" style="top:394.5px"></div>
+      <div class="t" style="left:78px;top:393px;font-size:9.5px">일회용기 사용</div>
+
+      <!-- step 2 -->
+      <div class="t blue" style="top:470px">맛있게 식사하기</div>
+      <div class="t blue r" style="top:470px">step 2</div>
+      <div class="t" style="top:500px">배달된 음식을 다회용기에 담긴 그대로 편하게 즐겨보세요.<br>양에 따라 다른 사이즈의 다회용기가 제공됩니다.</div>
+
+      <div class="box" style="left:40px;top:567px;width:99px;height:72px">M</div>
+      <div class="mm v" style="left:153px;top:602px">130mm</div>
+      <div class="mm" style="left:89px;top:655px">180mm</div>
+      <div class="box" style="left:227px;top:567px;width:89px;height:63px">S</div>
+      <div class="mm v" style="left:332px;top:602px">115mm</div>
+      <div class="mm" style="left:271px;top:655px">162mm</div>
+
+      <!-- step 3 -->
+      <div class="t blue" style="top:710px">다회용기 뚜껑 닫아 수거 가방에 넣기</div>
+      <div class="t blue r" style="top:710px">step 3</div>
+      <div class="t" style="top:740px">식사를 마쳤다면 사용한 다회용기의 뚜껑을 닫고, 뚜껑을 닫은<br>다회용기를 문 앞 수거 가방에 넣어주세요.</div>
+      <div class="t" style="top:794px">별도의 설거지나 세척 과정은 필요하지 않아요.</div>
+
+      <!-- step 4 -->
+      <div class="t blue" style="top:854px">수거 신청하기</div>
+      <div class="t blue r" style="top:854px">step 4</div>
+      <div class="t" style="top:883px">수거 가방이나 전용 다회용기의 NFC 태그에 휴대폰을 태그해 수거<br>방법을 확인하고 다회용기 수거 신청을 진행해주세요.</div>
+      <div class="t" style="top:938px">수거 신청이 완료되면, 달칵이 직접 순차적으로 다회용기를 수거해요.<br>반납 장소를 찾아갈 필요 없이 간편하게 다회용기를 반납할 수 있어요.</div>
+
+      <!-- 수거 가방 + 확대 로고 -->
+      <svg class="ill" style="left:40px;top:999px" width="157.9" height="99" viewBox="78 59 1196 750">
+        <polygon points="279,288 279,152 348,84 696,84 764,152 764,288" fill="#EFEFEF"/>
+        <rect x="370" y="175" width="302" height="113" fill="#fff"/>
+        <polygon points="78,288 956,288 956,675 828,805 207,805 78,675" fill="#5FB4E6"/>
+        <g fill="#fff" font-family="PretendardBold,sans-serif" font-weight="700">
+          <text x="209" y="423" font-size="40" textLength="161" lengthAdjust="spacing">번거로운</text>
+          <text x="209" y="483" font-size="40" textLength="252" lengthAdjust="spacing">배달 뒷정리는</text>
+          <text x="209" y="543" font-size="40" textLength="160" lengthAdjust="spacing">달칵에게</text>
+          <text x="209" y="660" font-size="14.5" textLength="232" lengthAdjust="spacing">우측 달칵 마크에 스마트폰을 태그해</text>
+          <text x="209" y="682" font-size="14.5" textLength="219" lengthAdjust="spacing">다회용기 수거 방법을 확인하세요.</text>
+        </g>
+        <line x1="209" y1="623" x2="826" y2="623" stroke="#fff" stroke-width="5" stroke-dasharray="20 11"/>
+        <g style="--w1:#fff;--w2:#fff"><use href="#word" x="723" y="652" width="100" height="27.4"/></g>
+        <g style="--c1:#fff;--c2:#fff;--c3:#fff"><use href="#logo" x="588" y="385" width="234" height="152"/></g>
+        <line x1="588" y1="385" x2="818" y2="172" stroke="#333" stroke-width="1.5"/>
+        <line x1="730" y1="537" x2="1000" y2="555" stroke="#333" stroke-width="1.5"/>
+        <circle cx="1026" cy="308" r="248" fill="#5FB4E6" stroke="#333" stroke-width="1.5"/>
+        <g style="--c1:#fff;--c2:#fff;--c3:#fff"><use href="#logo" x="883" y="218" width="298" height="194"/></g>
+      </svg>
+
+      <!-- NFC 카드 -->
+      <svg class="ill" style="left:222px;top:1028.6px" width="139.7" height="69.7" viewBox="1464 283 1058 528">
+        <rect x="1464" y="283" width="1058" height="528" fill="#fff"/>
+        <rect x="1851" y="283" width="671" height="528" fill="#5FB4E6"/>
+        <rect x="1464" y="283" width="1058" height="528" fill="none" stroke="#333" stroke-width="2"/>
+        <use href="#logo" x="1529" y="346" width="258" height="168"/>
+        <g fill="#fff" font-family="PretendardBold,sans-serif" font-weight="700" font-size="46">
+          <text x="1911" y="387" textLength="381" lengthAdjust="spacing">스마트폰을 태그해</text>
+          <text x="1911" y="462" textLength="499" lengthAdjust="spacing">다회용기 수거 방법 확인</text>
+        </g>
+        <rect x="1914" y="643" width="219" height="114" rx="30" fill="none" stroke="#A9D6F2" stroke-width="6"/>
+        <text x="2023" y="724" text-anchor="middle" font-family="Google Sans,PretendardBold,sans-serif" font-weight="700" font-size="66" fill="#A9D6F2">NFC</text>
+      </svg>
+
+      <!-- About -->
+      <div class="band" style="top:1143px;height:385px"></div>
+      <div class="t h white" style="top:1191px">About dalkak</div>
+      <div class="t white" style="top:1237px">dalkak(달칵)은 편리한 배달음식 이용 라이프스타일을 제안하는<br>다회용기 배달 서비스 브랜드입니다.</div>
+      <div class="t white" style="top:1291px">달칵이라는 브랜드명은 다회용기를 밀폐하는 과정에서 자연스럽게<br>떠오르는 달칵 소리를 연상해 편리한 다회용기 사용을 강조합니다.</div>
+      <div class="t white" style="top:1345px">달칵은 배달 음식 서비스를 이용한 후 소비자가 느끼는 뒷정리의<br>번거로움과 배달 음식 서비스 이용으로 인한 일회용품 쓰레기 발생<br>문제를 편리하게 해결합니다.</div>
+      <svg class="ill" style="left:40px;top:1464px;--w1:rgba(255,255,255,.28);--w2:rgba(255,255,255,.42)" width="100" height="27.4"><use href="#word" width="100" height="27.4"/></svg>
+    </div>
+  </section>
+
+  <!-- ───────── 2. 수거 신청 완료 ───────── -->
+  <section class="screen" id="done">
+    <div class="page">
+
+      <svg class="ill" style="left:187px;top:52px" width="28" height="18.2"><use href="#logo" width="28" height="18.2"/></svg>
+
+      <div class="t c blue" style="top:134px;font-size:14px;line-height:25px">달칵 다회용기 수거 신청이 완료되었습니다.<br>곧 다회용기를 수거하러 갈게요.</div>
+
+      <button class="cta" style="top:232px" data-go="landing">이전 화면으로 돌아가기</button>
+
+      <div class="band" style="top:328px;height:431px"></div>
+      <div class="t h white" style="top:375px">After return</div>
+      <div class="t white" style="top:422px">사용한 다회용기는 수거와 세척을 거쳐 다시 식당으로 전달되고,<br>새로운 배달에 사용됩니다.</div>
+
+      <div class="t white" style="top:517px">step 1</div>
+      <div class="t white" style="left:147px;top:517px">소비자가 식사를 마친 후 문 앞에 내놓은<br>다회용기를 달칵이 수거합니다.</div>
+      <div class="t white" style="top:565px">step 2</div>
+      <div class="t white" style="left:147px;top:565px">수거된 다회용기는 달칵만의 전문적인 세척<br>과정을 거쳐 다시 사용할 수 있도록 준비됩니다.</div>
+      <div class="t white" style="top:613px">step 3</div>
+      <div class="t white" style="left:147px;top:613px">세척을 마친 다회용기는 배달 업체 및 식당으로<br>다시 전달됩니다.</div>
+      <div class="t white" style="top:661px">step 4</div>
+      <div class="t white" style="left:147px;top:661px">배달 업체 및 식당에 전달된 다회용기는 새로운<br>음식이 담겨 다시 개인 소비자에게 배달됩니다.</div>
+
+      <div class="t" style="top:801px">© dalkak. 2026</div>
+      <div class="t" style="top:819px">기획 · 디자인 | 이현서</div>
+    </div>
+  </section>
+</div>
+
+<script>
+  const screens = {
+    landing: document.getElementById('landing'),
+    done: document.getElementById('done')
+  };
+  document.querySelectorAll('[data-go]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      Object.values(screens).forEach(s => s.classList.remove('on'));
+      const next = screens[btn.dataset.go];
+      next.classList.add('on');
+      next.scrollTop = 0;
+    });
+  });
+</script>
+</body>
+</html>
