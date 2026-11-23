@@ -51,22 +51,24 @@ body{
 button{font:inherit;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
 
 .device{
-  position:relative;width:var(--dev-w);height:var(--dev-h);
-  background:#fff;overflow:hidden;
+  position:relative;width:min(100vw,402px);height:100dvh;min-height:100vh;
+  margin:0 auto;background:#fff;overflow:hidden;
   box-shadow:0 10px 40px rgba(0,0,0,.18);
 }
 @media (max-width:402px){
   body{background:#fff;display:block}
-  .device{margin:0 auto;box-shadow:none;max-width:100%}
+  .device{margin:0 auto;box-shadow:none;width:100vw}
 }
 
-.screen{position:absolute;inset:0;display:none;overflow-x:hidden;overflow-y:hidden}
+.screen{
+  position:absolute;inset:0;display:none;overflow-x:hidden;overflow-y:auto;
+  -webkit-overflow-scrolling:touch;overscroll-behavior-y:contain;scrollbar-width:none
+}
+.screen::-webkit-scrollbar{display:none}
 .screen.on{display:block}
-#landing.on{overflow-y:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-#landing::-webkit-scrollbar{display:none}
 
-/* 절대 좌표 기반 레이아웃 (이미지 기준 402px 환산) */
-.page{position:relative;width:402px;margin:0 auto}
+/* 402px 기준 원본 좌표계를 유지하고 화면 너비에 맞춰 페이지 전체를 비례 축소 */
+.page{position:relative;width:402px;margin:0 auto;zoom:1}
 #landing .page{height:1528px}
 #done .page{height:852px}
 
@@ -265,12 +267,29 @@ button{font:inherit;border:0;cursor:pointer;-webkit-tap-highlight-color:transpar
     landing: document.getElementById('landing'),
     done: document.getElementById('done')
   };
+  const device = document.querySelector('.device');
+  const pages = document.querySelectorAll('.page');
+
+  // 402px 기준 디자인을 실제 표시 영역 너비에 맞춰 동일 비율로 축소합니다.
+  function fitToScreen() {
+    const availableWidth = Math.min(device.clientWidth, 402);
+    const scale = availableWidth / 402;
+    pages.forEach(page => {
+      page.style.zoom = String(scale);
+    });
+  }
+
+  fitToScreen();
+  window.addEventListener('resize', fitToScreen);
+  window.addEventListener('orientationchange', fitToScreen);
+
   document.querySelectorAll('[data-go]').forEach(btn => {
     btn.addEventListener('click', () => {
       Object.values(screens).forEach(s => s.classList.remove('on'));
       const next = screens[btn.dataset.go];
       next.classList.add('on');
       next.scrollTop = 0;
+      fitToScreen();
     });
   });
 </script>
