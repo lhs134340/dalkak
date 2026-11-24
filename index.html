@@ -71,6 +71,7 @@ button{font:inherit;border:0;cursor:pointer;-webkit-tap-highlight-color:transpar
 .page{position:relative;width:402px;margin:0 auto;zoom:1}
 #landing .page{height:1528px}
 #done .page{height:852px}
+#loading .page{height:852px}
 
 .t{position:absolute;left:40px;line-height:18px;white-space:nowrap}
 .r{left:auto;right:40px}
@@ -84,6 +85,11 @@ button{font:inherit;border:0;cursor:pointer;-webkit-tap-highlight-color:transpar
   background:var(--blue);color:#fff;font-size:13px;
   font-family:"PretendardBold","Pretendard",sans-serif;font-weight:700;
 }
+
+/* 로딩 */
+#loading{overflow:hidden}
+.spinner{position:absolute;left:163px;top:130.5px;width:76px;height:76px;animation:spin .5s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 /* 라디오 */
 .radio{position:absolute;left:54.5px;width:15px;height:15px;border-radius:50%;background:#DCDCDC}
@@ -233,6 +239,17 @@ button{font:inherit;border:0;cursor:pointer;-webkit-tap-highlight-color:transpar
     </div>
   </section>
 
+  <!-- ───────── 로딩 (1 → 2 이동 시에만) ───────── -->
+  <section class="screen" id="loading">
+    <div class="page">
+      <svg class="ill" style="left:187px;top:52px" width="28" height="18.2"><use href="#logo" width="28" height="18.2"/></svg>
+      <svg class="spinner" viewBox="0 0 76 76" aria-label="loading">
+        <circle cx="38" cy="38" r="33" fill="none" stroke="#9DD6F3" stroke-width="10" stroke-linecap="round"
+                stroke-dasharray="157.6 49.7" transform="rotate(40 38 38)"/>
+      </svg>
+    </div>
+  </section>
+
   <!-- ───────── 2. 수거 신청 완료 ───────── -->
   <section class="screen" id="done">
     <div class="page">
@@ -265,6 +282,7 @@ button{font:inherit;border:0;cursor:pointer;-webkit-tap-highlight-color:transpar
 <script>
   const screens = {
     landing: document.getElementById('landing'),
+    loading: document.getElementById('loading'),
     done: document.getElementById('done')
   };
   const device = document.querySelector('.device');
@@ -283,13 +301,29 @@ button{font:inherit;border:0;cursor:pointer;-webkit-tap-highlight-color:transpar
   window.addEventListener('resize', fitToScreen);
   window.addEventListener('orientationchange', fitToScreen);
 
+  const LOADING_MS = 500;
+  let busy = false;
+
+  function show(name) {
+    Object.values(screens).forEach(s => s.classList.remove('on'));
+    const next = screens[name];
+    next.classList.add('on');
+    next.scrollTop = 0;
+    fitToScreen();
+  }
+
   document.querySelectorAll('[data-go]').forEach(btn => {
     btn.addEventListener('click', () => {
-      Object.values(screens).forEach(s => s.classList.remove('on'));
-      const next = screens[btn.dataset.go];
-      next.classList.add('on');
-      next.scrollTop = 0;
-      fitToScreen();
+      if (busy) return;
+      const target = btn.dataset.go;
+      if (target === 'done') {
+        // 1페이지 → 2페이지 이동 시에만 로딩 화면 노출
+        busy = true;
+        show('loading');
+        setTimeout(() => { show('done'); busy = false; }, LOADING_MS);
+      } else {
+        show(target);
+      }
     });
   });
 </script>
